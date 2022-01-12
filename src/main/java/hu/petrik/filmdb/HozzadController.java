@@ -4,7 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-public class HozzadController {
+import java.sql.SQLException;
+
+public class HozzadController extends Controller {
     @FXML
     private TextField inputCim;
     @FXML
@@ -15,7 +17,7 @@ public class HozzadController {
     private ChoiceBox<Integer> inputErtekeles;
 
     @FXML
-    public void onHozzadButtonClick(ActionEvent actionEvent) {
+    public void onHozzadButtonClick(ActionEvent actionEvent)  {
         String cim = inputCim.getText().trim();
         String kategoria = inputKategoria.getText().trim();
         int hossz = 0;
@@ -48,12 +50,21 @@ public class HozzadController {
         }
         System.out.println(hossz);
         int ertekeles = inputErtekeles.getValue();
+
+        try {
+            FilmDb db=new FilmDb();
+            int siker=db.filmhozzaAdasa(cim,kategoria,hossz,ertekeles);
+            if (siker==1) {
+                alert("A film hozzáadása sikeres!");
+            }else {
+                alert("A film hozzáadása sikertelen!");
+            }
+        }catch (Exception e){
+            hibaKiir(e);
+        }
+
+
     }
 
-    private void alert(String uzenet) {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setContentText(uzenet);
-        alert.getButtonTypes().add(ButtonType.OK);
-        alert.show();
-    }
+
 }
