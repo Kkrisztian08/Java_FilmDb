@@ -1,9 +1,10 @@
-package hu.petrik.filmdb;
+package hu.petrik.filmdb.controllers;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -28,5 +29,13 @@ public abstract class Controller {
         alert.setContentText(uzenet);
         alert.getButtonTypes().add(ButtonType.OK);
         alert.show();
+    }
+
+    protected boolean confirm(String uzenet){
+        Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Biztos?");
+        alert.setHeaderText(uzenet);
+        Optional<ButtonType> result= alert.showAndWait();
+        return result.get()==ButtonType.OK;
     }
 }

@@ -1,22 +1,19 @@
-package hu.petrik.filmdb;
+package hu.petrik.filmdb.controllers;
 
-import javafx.application.Platform;
+import hu.petrik.filmdb.Film;
+import hu.petrik.filmdb.FilmApp;
+import hu.petrik.filmdb.FilmDb;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainController extends Controller {
 
@@ -54,6 +51,23 @@ public class MainController extends Controller {
 
     @FXML
     public void onTorlesButtonClick(ActionEvent actionEvent) {
+        int selectedIndex=filmTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex == -1) {
+            alert("A törléshez elöbb válasszon ki egy elemet");
+            return;
+        }else {
+            Film torlendoFilm=filmTable.getSelectionModel().getSelectedItem();
+            if (!confirm("Biztos hogy szeretné törölni az alábbi filmet: "+torlendoFilm.getCim())) {
+                return;
+            }
+            try {
+                db.filmTorlese(torlendoFilm.getId());
+                alert("Sikeres törés!");
+                filmListaFeltolt();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML

@@ -1,10 +1,9 @@
-package hu.petrik.filmdb;
+package hu.petrik.filmdb.controllers;
 
+import hu.petrik.filmdb.FilmDb;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
-import java.sql.SQLException;
 
 public class HozzadController extends Controller {
     @FXML
