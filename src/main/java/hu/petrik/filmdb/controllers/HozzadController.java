@@ -1,5 +1,6 @@
 package hu.petrik.filmdb.controllers;
 
+import hu.petrik.filmdb.Controller;
 import hu.petrik.filmdb.FilmDb;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -61,9 +62,5 @@ public class HozzadController extends Controller {
         }catch (Exception e){
             hibaKiir(e);
         }
-
-
     }
-
-
 }
